@@ -19,20 +19,6 @@ public class UserDao implements Dao<Integer, User> {
             VALUES (?, ?, ?, ?, ?, ?)
             """;
 
-    private static final String DELETE_BY_ID = """
-            DELETE FROM users 
-            WHERE id = ?
-            """;
-
-    public static boolean deleteById(Connection connection, int userId) throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement(DELETE_BY_ID)) {
-            statement.setInt(1, userId);
-
-            int rowsAffected = statement.executeUpdate();
-            return rowsAffected > 0;
-        }
-    }
-
     @Override
     public User save(User entity) throws SQLException {
         try (var connection = ConnectionManager.get();

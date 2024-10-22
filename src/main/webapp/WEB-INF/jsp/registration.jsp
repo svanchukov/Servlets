@@ -12,12 +12,15 @@
 </head>
 <body>
 <h2>Registration</h2>
-<form action="registration" method="post">
+<form action="registration" method="post" enctype="">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required><br><br>
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required><br><br>
+
+    <label for="imageId">Image:</label>
+    <input type="file" id="imageId" name="image" ><br><br>
 
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required><br><br>
@@ -34,7 +37,7 @@
         <option value="ADMIN">Admin</option>
     </select><br><br>
 
-    <input type="submit" value="Register">
+    <input type="submit" value="Registration">
 </form>
 </body>
 </html>

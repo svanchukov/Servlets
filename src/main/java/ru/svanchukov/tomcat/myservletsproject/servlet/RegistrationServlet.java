@@ -11,7 +11,6 @@ import ru.svanchukov.tomcat.myservletsproject.service.UserService;
 import ru.svanchukov.tomcat.myservletsproject.util.JspHelper;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/registration")
@@ -40,11 +39,21 @@ public class RegistrationServlet extends HttpServlet {
                 .role(req.getParameter("role"))
                 .build();
 
+        userService.create(userDto);
+
         try {
             userService.create(userDto);
-            resp.sendRedirect("/login");
+
+            // Проверка роли и перенаправление
+            if ("ADMIN".equalsIgnoreCase(userDto.getRole())) {
+                resp.sendRedirect("/admin");
+            } else {
+                resp.sendRedirect("/login");
+            }
         } catch (ValidationException exception) {
             req.setAttribute("errors", exception.getClass());
+            req.getRequestDispatcher(JspHelper.getPath("registration"))
+                    .forward(req, resp);
         }
     }
 }

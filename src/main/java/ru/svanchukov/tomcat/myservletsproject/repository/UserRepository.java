@@ -4,6 +4,7 @@ import ru.svanchukov.tomcat.myservletsproject.entity.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UserRepository {
     private List<User> users = new ArrayList<>();
@@ -24,5 +25,14 @@ public class UserRepository {
         user.setId(nextId++);
         users.add(user);
         return user.getId();
+    }
+
+    public User findByUsername(String username) {
+        for (User user : users) {
+            if (Objects.equals(user.getName(), username)) {
+                return user;
+            }
+        }
+        return null;
     }
 }
